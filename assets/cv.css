@@ -64,7 +64,7 @@
     color: #383838;
     font-weight: bold;
     width: 220px;
-    padding-right: 15px;
+    /* padding-right: 15px; */
     vertical-align: top;
 }
 
@@ -91,6 +91,12 @@
     float: left;
     max-width: 67%;
 	padding: 17px 0;
+}
+
+.article_photo{
+    width: 220px; 
+    text-align: center; 
+    display: inline-block;
 }
 
 @media screen and (max-width: 800px) {

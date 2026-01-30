@@ -3,23 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="computational Biology and Bioinformatics, mathematics, hyper-complex, quaternion number, view synthesis, neural rendering, real-time graphics">
-    <meta name="author" content="An Hung Nguyen">
-    <title>An Hung Nguyen ✨</title>
+    <title>An Hung Nguyen — AI Researcher</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
-
         :root {
-            --primary: #4A90E2;
-            --secondary: #2E5C8A;
-            --accent: #B8D4F1;
-            --purple: #7EC8E3;
-            --blue: #5AB9EA;
-            --yellow: #87CEEB;
-            --bg: #F0F8FF;
-            --card-bg: #FFFFFF;
-            --text: #2C3E50;
-            --text-light: #6C7A89;
+            --primary-dark: #1a2332;
+            --primary-medium: #2d3e50;
+            --accent-gold: #d4a574;
+            --accent-blue: #5b7c99;
+            --text-primary: #1a2332;
+            --text-secondary: #546e7a;
+            --bg-cream: #faf8f5;
+            --bg-white: #ffffff;
+            --border-light: #e8e4df;
         }
 
         * {
@@ -29,317 +27,321 @@
         }
 
         body {
-            font-family: 'Quicksand', sans-serif;
-            background: var(--bg);
-            color: var(--text);
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--bg-cream);
+            color: var(--text-primary);
+            line-height: 1.7;
             overflow-x: hidden;
         }
 
-        /* Floating shapes background */
-        .bg-shapes {
+        /* Typography */
+        h1, h2, h3 {
+            font-family: 'IBM Plex Serif', serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        /* Decorative background */
+        .page-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0;
-            pointer-events: none;
+            z-index: -1;
+            opacity: 0.03;
+            background-image: 
+                radial-gradient(circle at 20% 30%, var(--accent-gold) 1px, transparent 1px),
+                radial-gradient(circle at 80% 70%, var(--accent-blue) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-medium) 100%);
+            color: white;
+            padding: 100px 0 80px;
+            position: relative;
             overflow: hidden;
         }
 
-        .shape {
+        .hero::before {
+            content: '';
             position: absolute;
-            border-radius: 50%;
-            opacity: 0.1;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 165, 116, 0.1) 0%, transparent 70%);
             animation: float 20s infinite ease-in-out;
-        }
-
-        .shape:nth-child(1) {
-            width: 80px;
-            height: 80px;
-            background: var(--primary);
-            top: 10%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .shape:nth-child(2) {
-            width: 60px;
-            height: 60px;
-            background: var(--purple);
-            top: 60%;
-            left: 80%;
-            animation-delay: 3s;
-        }
-
-        .shape:nth-child(3) {
-            width: 100px;
-            height: 100px;
-            background: var(--blue);
-            top: 80%;
-            left: 20%;
-            animation-delay: 6s;
-        }
-
-        .shape:nth-child(4) {
-            width: 70px;
-            height: 70px;
-            background: var(--yellow);
-            top: 30%;
-            left: 70%;
-            animation-delay: 9s;
         }
 
         @keyframes float {
             0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(20px, -20px) rotate(90deg); }
-            50% { transform: translate(-20px, 20px) rotate(180deg); }
-            75% { transform: translate(20px, 20px) rotate(270deg); }
+            50% { transform: translate(-30px, 30px) rotate(5deg); }
         }
 
-        .container {
-            max-width: 1200px;
+        .hero-container {
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 40px;
             position: relative;
             z-index: 1;
         }
 
-        /* Header */
-        .header {
-            padding: 60px 0;
-            text-align: center;
+        .hero-content {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 50px;
+            align-items: start;
         }
 
-        .avatar-container {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 30px;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .avatar {
+        .profile-image {
             width: 180px;
             height: 180px;
             border-radius: 50%;
-            border: 5px solid var(--primary);
-            box-shadow: 0 10px 30px rgba(74, 144, 226, 0.3);
-            overflow: hidden;
-            position: relative;
-        }
-
-        .avatar img {
-            width: 100%;
-            height: 100%;
+            border: 4px solid var(--accent-gold);
             object-fit: cover;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.8s ease-out;
         }
 
-        .avatar-fallback {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--primary);
-            background: linear-gradient(135deg, var(--accent), var(--purple));
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .sparkles {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            font-size: 2rem;
-            animation: sparkle 1.5s infinite;
+        .hero-text {
+            animation: fadeInUp 0.8s ease-out 0.2s both;
         }
 
-        @keyframes sparkle {
-            0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
-            50% { transform: scale(1.3) rotate(180deg); opacity: 0.7; }
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 12px;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
         }
 
-        h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-        }
-
-        .title {
-            font-size: 1.3rem;
-            color: var(--text-light);
+        .hero-subtitle {
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: var(--accent-gold);
             margin-bottom: 30px;
+            font-family: 'IBM Plex Serif', serif;
+            letter-spacing: 0.03em;
         }
 
-        .title::before {
-            content: "🤖 ";
-        }
-
-        .bio {
-            max-width: 700px;
-            margin: 0 auto 30px;
-            font-size: 1.1rem;
+        .hero-bio {
+            font-size: 1.05rem;
             line-height: 1.8;
-            color: var(--text);
+            max-width: 700px;
+            margin-bottom: 35px;
+            color: rgba(255, 255, 255, 0.9);
         }
 
-        .links {
+        .hero-links {
             display: flex;
-            gap: 15px;
-            justify-content: center;
+            gap: 20px;
             flex-wrap: wrap;
         }
 
-        .link {
+        .hero-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             padding: 12px 28px;
-            border-radius: 30px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
             color: white;
             text-decoration: none;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+            font-weight: 500;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
 
-        .link::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
+        .hero-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--accent-gold);
+            transform: translateY(-2px);
         }
 
-        .link:hover::before {
-            width: 300px;
-            height: 300px;
+        /* Main Content */
+        .main-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 40px;
         }
 
-        .link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
-        }
-
-        /* Sections */
         .section {
-            margin: 60px 0;
+            margin-bottom: 100px;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .section-header {
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-number {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
         }
 
         .section-title {
-            font-size: 2.2rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 40px;
+            font-size: 2.8rem;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
             position: relative;
             display: inline-block;
-            width: 100%;
         }
 
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
+            bottom: -8px;
+            left: 0;
             width: 60px;
-            height: 4px;
-            background: linear-gradient(135deg, var(--primary), var(--purple));
-            border-radius: 2px;
+            height: 3px;
+            background: var(--accent-gold);
+        }
+
+        .section-intro {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin-top: 25px;
+            line-height: 1.8;
         }
 
         /* Research Interests */
-        .interests {
+        .interests-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .interest {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            border: 3px solid transparent;
-        }
-
-        .interest:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.2);
-        }
-
-        .interest::before {
-            content: "✨";
-            display: block;
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        /* Publications */
-        .publications {
-            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 25px;
         }
 
-        .publication {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 20px;
-            border-left: 5px solid var(--primary);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
+        .interest-card {
+            background: var(--bg-white);
+            padding: 35px 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
 
-        .publication:hover {
-            transform: translateX(5px);
-            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.15);
+        .interest-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 0;
+            background: var(--accent-gold);
+            transition: height 0.4s ease;
+        }
+
+        .interest-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border-color: var(--accent-gold);
+        }
+
+        .interest-card:hover::before {
+            height: 100%;
+        }
+
+        .interest-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .interest-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            line-height: 1.4;
+        }
+
+        /* Publications */
+        .publications-list {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+
+        .publication-card {
+            background: var(--bg-white);
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .publication-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-gold) 0%, transparent 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .publication-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+        }
+
+        .publication-card:hover::before {
+            transform: scaleX(1);
         }
 
         .pub-title {
             font-size: 1.2rem;
             font-weight: 600;
-            color: var(--secondary);
-            margin-bottom: 12px;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
             line-height: 1.5;
+            font-family: 'IBM Plex Serif', serif;
         }
 
         .pub-authors {
             font-size: 0.95rem;
-            color: var(--text);
-            margin-bottom: 8px;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            line-height: 1.6;
         }
 
         .pub-authors strong {
-            color: var(--primary);
-            font-weight: 700;
+            color: var(--accent-gold);
+            font-weight: 600;
         }
 
         .pub-venue {
             font-size: 0.9rem;
-            color: var(--text-light);
-            margin-bottom: 15px;
+            color: var(--text-secondary);
             font-style: italic;
-        }
-
-        .pub-venue::before {
-            content: "📄 ";
+            margin-bottom: 20px;
+            font-weight: 500;
         }
 
         .pub-links {
@@ -349,516 +351,678 @@
         }
 
         .pub-link {
-            padding: 6px 16px;
-            border-radius: 15px;
-            background: var(--accent);
-            color: var(--secondary);
+            display: inline-block;
+            padding: 8px 20px;
+            background: transparent;
+            border: 1px solid var(--border-light);
+            color: var(--text-primary);
             text-decoration: none;
             font-size: 0.85rem;
-            font-weight: 600;
+            font-weight: 500;
+            border-radius: 4px;
             transition: all 0.3s ease;
         }
 
         .pub-link:hover {
-            background: var(--primary);
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
             color: white;
-            transform: scale(1.05);
+        }
+
+        /* Experience specific styles */
+        .experience-role {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            line-height: 1.5;
+            font-family: 'IBM Plex Serif', serif;
+        }
+
+        .experience-company {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .experience-company strong {
+            color: var(--accent-gold);
+            font-weight: 600;
         }
 
         /* Awards */
-        .awards {
-            display: grid;
-            gap: 25px;
-        }
-
-        .award {
-            background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
-            padding: 30px;
-            border-radius: 20px;
-            border: 3px solid var(--blue);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        .awards-timeline {
             position: relative;
-            overflow: hidden;
+            padding-left: 50px;
         }
 
-        .award::before {
-            content: "🏆";
+        .awards-timeline::before {
+            content: '';
             position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 3rem;
-            opacity: 0.3;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-gold) 0%, transparent 100%);
+        }
+
+        .award-item {
+            position: relative;
+            margin-bottom: 45px;
+            padding: 30px 35px;
+            background: var(--bg-white);
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .award-item::before {
+            content: '';
+            position: absolute;
+            left: -35px;
+            top: 35px;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            border: 3px solid var(--bg-cream);
+        }
+
+        .award-item:hover {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+            border-color: var(--accent-gold);
         }
 
         .award-date {
             font-size: 0.85rem;
-            color: var(--secondary);
-            font-weight: 700;
-            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--accent-blue);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
         }
 
         .award-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--secondary);
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--primary-dark);
             margin-bottom: 10px;
+            font-family: 'IBM Plex Serif', serif;
         }
 
         .award-desc {
-            font-size: 1rem;
-            color: var(--text);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
             line-height: 1.6;
         }
 
         /* Education */
-        .education {
+        .education-grid {
             display: grid;
-            gap: 25px;
+            gap: 30px;
         }
 
-        .edu-item {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 20px;
-            border: 3px solid var(--purple);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            position: relative;
+        .education-card {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 35px;
+            background: var(--bg-white);
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+            align-items: start;
         }
 
-        .edu-item::before {
-            content: "🎓";
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 2.5rem;
-            opacity: 0.3;
+        .education-card:hover {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+            border-color: var(--accent-gold);
         }
 
-        .edu-period {
-            font-size: 0.85rem;
-            color: var(--primary);
-            font-weight: 700;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .edu-year {
+            font-family: 'IBM Plex Serif', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            line-height: 1.2;
+            padding-top: 5px;
+        }
+
+        .edu-content {
         }
 
         .edu-degree {
             font-size: 1.2rem;
             font-weight: 600;
-            color: var(--secondary);
+            color: var(--primary-dark);
             margin-bottom: 10px;
+            line-height: 1.4;
+            font-family: 'IBM Plex Serif', serif;
         }
 
         .edu-school {
             font-size: 1rem;
-            color: var(--text);
+            color: var(--text-secondary);
+            line-height: 1.6;
         }
 
         /* Footer */
         .footer {
+            background: var(--primary-dark);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 50px 40px;
             text-align: center;
-            padding: 40px 0;
-            margin-top: 60px;
-            border-top: 2px dashed var(--accent);
+            margin-top: 100px;
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
         .footer-text {
-            color: var(--text-light);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            font-weight: 300;
         }
 
-        .footer-text::before {
-            content: "💙 ";
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .hero-content {
+                grid-template-columns: 150px 1fr;
+                gap: 35px;
+            }
+
+            .profile-image {
+                width: 150px;
+                height: 150px;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .interests-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .education-card {
+                grid-template-columns: 120px 1fr;
+                gap: 25px;
+            }
         }
 
-        /* Navigation */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            padding: 15px 0;
-            transition: all 0.3s ease;
-        }
-
-        .nav.scrolled {
-            box-shadow: 0 4px 20px rgba(74, 144, 226, 0.2);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-            align-items: center;
-        }
-
-        .nav-link {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 5px 0;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .nav-link:hover {
-            color: var(--primary);
-        }
-
-        .nav-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        .nav-toggle span {
-            width: 25px;
-            height: 3px;
-            background: var(--primary);
-            border-radius: 3px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(8px, 8px);
-        }
-
-        .nav-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .nav-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-
-        body {
-            padding-top: 80px;
-        }
-
-        /* Responsive */
         @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; }
-            .title { font-size: 1.1rem; }
-            .bio { font-size: 1rem; }
-            .section-title { font-size: 1.8rem; }
-            .interests { grid-template-columns: 1fr; }
-            .avatar { width: 150px; height: 150px; }
-
-            .nav-toggle {
-                display: flex;
+            .hero {
+                padding: 80px 0 60px;
             }
 
-            .nav-menu {
-                position: fixed;
-                top: 70px;
-                left: -100%;
-                width: 100%;
-                flex-direction: column;
-                background: rgba(255, 255, 255, 0.98);
-                backdrop-filter: blur(10px);
-                padding: 30px 0;
+            .hero-container {
+                padding: 0 25px;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                text-align: center;
+            }
+
+            .profile-image {
+                width: 140px;
+                height: 140px;
+                margin: 0 auto;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .hero-bio {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-links {
+                justify-content: center;
+            }
+
+            .main-content {
+                padding: 60px 25px;
+            }
+
+            .section {
+                margin-bottom: 70px;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .interests-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .publication-card {
+                padding: 30px 25px;
+            }
+
+            .awards-timeline {
+                padding-left: 40px;
+            }
+
+            .education-card {
+                grid-template-columns: 1fr;
                 gap: 20px;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-                transition: left 0.3s ease;
+                padding: 30px 25px;
             }
 
-            .nav-menu.active {
-                left: 0;
+            .edu-year {
+                font-size: 1.5rem;
             }
         }
 
         @media (max-width: 480px) {
-            h1 { font-size: 1.8rem; }
-            .links { flex-direction: column; align-items: center; }
-            .link { width: 200px; text-align: center; }
-            .avatar { width: 120px; height: 120px; }
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .hero-link {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+            }
         }
+
+        /* Scroll reveal animation */
+        @keyframes revealUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal {
+            animation: revealUp 0.8s ease-out both;
+        }
+
+        .reveal-delay-1 { animation-delay: 0.1s; }
+        .reveal-delay-2 { animation-delay: 0.2s; }
+        .reveal-delay-3 { animation-delay: 0.3s; }
     </style>
 </head>
 <body>
-    <nav class="nav">
-        <div class="nav-container">
-            <div class="nav-logo">AHN ✨</div>
-            <div class="nav-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#interests" class="nav-link">Research</a></li>
-                <li><a href="#publications" class="nav-link">Publications</a></li>
-                <li><a href="#awards" class="nav-link">Awards</a></li>
-                <li><a href="#education" class="nav-link">Education</a></li>
-            </ul>
-        </div>
-    </nav>
+    <div class="page-bg"></div>
 
-    <div class="bg-shapes">
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
-    </div>
-
-    <div class="container">
-        <header class="header" id="about">
-            <div class="avatar-container">
-                <div class="avatar">
-                    <img src="./assets/avatar_2023.JPG" alt="An Hung Nguyen">
-                    <div class="avatar-fallback" style="display: none;">AH</div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <img src="./assets/avatar_2023.JPG" alt="An Hung Nguyen" class="profile-image" onerror="this.style.display='none'">
+                
+                <div class="hero-text">
+                    <h1 class="hero-title">An Hung Nguyen</h1>
+                    <p class="hero-subtitle">Computer Scientist & AI Researcher</p>
+                    <a href="mailto:info@nguyenhung.me" class="hero-bio hero-link">📧 info@nguyenhung.me</a>
+                    
+                    <p class="hero-bio">
+                        Researcher specializing in artificial intelligence, computational biology, and neural rendering. My work bridges mathematics and deep learning, with particular focus on quaternion-based architectures and medical imaging applications.
+                    </p>
+                    
+                    <div class="hero-links">
+                        <a href="/assets/CV_NguyenAnHung.pdf" class="hero-link" target="_blank">
+                            <span>📄</span>
+                            <span>CV</span>
+                        </a>
+                        
+                        <a href="https://scholar.google.com/citations?user=OLV8FnYAAAAJ&hl=en" class="hero-link" target="_blank">
+                            <span>🎓</span>
+                            <span>Google Scholar</span>
+                        </a>
+                        <a href="https://github.com/nguyenhung1903" class="hero-link" target="_blank">
+                            <span>💻</span>
+                            <span>GitHub</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/nguyenhung1903" class="hero-link" target="_blank">
+                            <span>💼</span>
+                            <span>LinkedIn</span>
+                        </a>
+                    </div>
                 </div>
-                <div class="sparkles">✨</div>
             </div>
+        </div>
+    </section>
 
-            <h1>An Hung Nguyen</h1>
-            <p class="title">Computer Scientist / AI Researcher</p>
+    <!-- Main Content -->
+    <main class="main-content">
+        
+        <!-- Research Interests -->
+        <section class="section reveal">
+            <div class="section-header">
+                <div class="section-number">01</div>
+                <h2 class="section-title">Research Interests</h2>
+                <p class="section-intro">
+                    My research explores the intersection of advanced mathematics and artificial intelligence, with applications in medical imaging, computer vision, and real-time rendering systems.
+                </p>
+            </div>
             
-            <div class="bio">
-                <p>Hi there! I'm a researcher passionate about AI and Data Science, applying cutting-edge technology to real-world problems in medicine and agriculture. My work explores the fascinating worlds of computational biology, neural rendering, and the magic of mathematics! 🌟</p>
-            </div>
-
-            <nav class="links">
-                <a href="/assets/CV_NguyenAnHung.pdf" class="link">📄 CV</a>
-                <a href="https://scholar.google.com/citations?user=OLV8FnYAAAAJ&hl=en" class="link">🎓 Scholar</a>
-                <a href="https://www.linkedin.com/in/nguyenhung1903" class="link">💼 LinkedIn</a>
-                <a href="https://github.com/nguyenhung1903" class="link">💻 GitHub</a>
-                <a href="mailto:info@nguyenhung.me" class="link">✉️ Email</a>
-            </nav>
-        </header>
-
-                    <section class="section" id="interests">
-            <h2 class="section-title">Research Interests</h2>
-            <div class="interests">
-                <div class="interest">Computational Biology & Bioinformatics</div>
-                <div class="interest">Mathematics & Hyper-complex Numbers</div>
-                <div class="interest">Quaternion Number Systems</div>
-                <div class="interest">View Synthesis & Neural Rendering</div>
-                <div class="interest">Real-time Graphics</div>
-                <div class="interest">Deep Learning in Medicine</div>
+            <div class="interests-grid">
+                <div class="interest-card reveal-delay-1">
+                    <span class="interest-icon">🧬</span>
+                    <h3 class="interest-title">Computational Biology & Bioinformatics</h3>
+                </div>
+                
+                <div class="interest-card reveal-delay-2">
+                    <span class="interest-icon">🔢</span>
+                    <h3 class="interest-title">Mathematics & Hypercomplex Number Systems</h3>
+                </div>
+                
+                <div class="interest-card reveal-delay-3">
+                    <span class="interest-icon">🎯</span>
+                    <h3 class="interest-title">Quaternion Neural Architectures</h3>
+                </div>
+                
+                <div class="interest-card reveal-delay-1">
+                    <span class="interest-icon">👁️</span>
+                    <h3 class="interest-title">View Synthesis & Neural Rendering</h3>
+                </div>
+                
+                <div class="interest-card reveal-delay-2">
+                    <span class="interest-icon">⚡</span>
+                    <h3 class="interest-title">Real-time Graphics Processing</h3>
+                </div>
+                
+                <div class="interest-card reveal-delay-3">
+                    <span class="interest-icon">🏥</span>
+                    <h3 class="interest-title">Deep Learning in Medicine</h3>
+                </div>
             </div>
         </section>
 
-        <section class="section" id="publications">
-            <h2 class="section-title">Publications</h2>
-            <div class="publications">
-                <article class="publication">
+        <!-- Work Experience -->
+        <section class="section reveal">
+            <div class="section-header">
+                <div class="section-number">02</div>
+                <h2 class="section-title">Work Experience</h2>
+                <p class="section-intro">
+                    Professional experience in AI research, engineering, and software development across international organizations.
+                </p>
+            </div>
+            
+            <div class="publications-list">
+                <article class="publication-card">
+                    <div class="pub-title">Computer Scientist & AI Engineer</div>
+                    <div class="pub-authors"><strong>SLA Software Logistik Artland GmbH</strong> — Germany (Remote)</div>
+                    <div class="pub-venue">August 2024 - Present</div>
+                    <div class="award-desc" style="margin-top: 15px; margin-bottom: 15px;">
+                        Integrated AI models into customer infrastructure and developed neural network architectures for detecting and segmenting animal pathogens. Automated data handling processes for signal processing using Python (PyTorch, NumPy, Pandas, Scikit-learn), C++, and Linux tools.
+                    </div>
+                    <div class="pub-links">
+                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">Medical Research</span>
+                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">Deep Learning</span>
+                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">Data Engineering</span>
+                    </div>
+                </article>
+
+                <article class="publication-card">
+                    <div class="pub-title">Collaboration Researcher</div>
+                    <div class="pub-authors"><strong>University of Regina</strong> — Canada</div>
+                    <div class="pub-venue">August 2024 - September 2025</div>
+                    <div class="award-desc" style="margin-top: 15px; margin-bottom: 15px;">
+                        Researched solutions for simulating chemical processes. Implemented simulation code using Matlab and Python for computational chemistry applications.
+                    </div>
+                    <div class="pub-links">
+                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">Simulation</span>
+                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">Matlab</span>
+                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">Python</span>
+                    </div>
+                </article>
+
+                <article class="publication-card">
+                    <div class="pub-title">AI Intern</div>
+                    <div class="pub-authors"><strong>Phygital Labs</strong> — Vietnam</div>
+                    <div class="pub-venue">May 2024 - July 2024</div>
+                    <div class="award-desc" style="margin-top: 15px; margin-bottom: 15px;">
+                        Worked on deep learning projects with LLM models to develop solutions for querying large documents. Collaborated with a former Senior Google engineer on system deployment.
+                    </div>
+                    <div class="pub-links">
+                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">LLM</span>
+                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">NLP</span>
+                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">System Deployment</span>
+                    </div>
+                </article>
+
+                <article class="publication-card">
+                    <div class="pub-title">Computer Scientist & AI Engineer</div>
+                    <div class="pub-authors"><strong>FX Data</strong> — Germany (Remote)</div>
+                    <div class="pub-venue">January 2022 - July 2024</div>
+                    <div class="award-desc" style="margin-top: 15px; margin-bottom: 15px;">
+                        Developed neural network architectures for detecting and segmenting animal pathogens. Created automation scripts for data handling and optimized signal processing workflows with Linux tools and shell scripting.
+                    </div>
+                    <div class="pub-links">
+                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">PyTorch</span>
+                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">Medical AI</span>
+                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">Automation</span>
+                    </div>
+                </article>
+
+                <article class="publication-card">
+                    <div class="pub-title">AI Engineer</div>
+                    <div class="pub-authors"><strong>Rhen Consulting</strong> — Germany (Remote)</div>
+                    <div class="pub-venue">October 2021 - December 2021</div>
+                    <div class="award-desc" style="margin-top: 15px; margin-bottom: 15px;">
+                        Collaborated with AI team to develop neural network architectures for pathogen detection and segmentation. Developed automation scripts for data processing with Linux distributions and shell scripting.
+                    </div>
+                    <div class="pub-links">
+                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">Neural Networks</span>
+                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">Automation</span>
+                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">Linux</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Publications -->
+        <section class="section reveal">
+            <div class="section-header">
+                <div class="section-number">03</div>
+                <h2 class="section-title">Publications</h2>
+                <p class="section-intro">
+                    Selected peer-reviewed publications in international conferences and journals.
+                </p>
+            </div>
+            
+            <div class="publications-list">
+                <article class="publication-card">
                     <h3 class="pub-title">Adaptive Hybrid Transformer Network with Frequency Attention for All-in-One Image Restoration</h3>
                     <div class="pub-authors">Cong Thang Pham, <strong>An Hung Nguyen</strong>, Quoc Cuong Nguyen, Minh Nhat Phan, Thanh Than Nguyen</div>
-                    <div class="pub-venue">ISPRS workshop PSBB25</div>
+                    <div class="pub-venue">International Workshop "Photogrammetric techniques for environmental and infraStructure monitoring, Biometrics and Biomedicine" - PSBB25</div>
                     <div class="pub-links">
-                        <a href="https://doi.org/10.5194/isprs-archives-XLVIII-2-W9-2025-213-2025" class="pub-link">DOI</a>
-                        <a href="https://www.proquest.com/openview/7a6500ab8536934f68b75d4ba9f19e86/1?pq-origsite=gscholar&cbl=2037674" class="pub-link">ProQuest</a>
+                        <a href="https://doi.org/10.5194/isprs-archives-XLVIII-2-W9-2025-213-2025" class="pub-link" target="_blank">DOI</a>
+                        <a href="https://www.proquest.com/openview/7a6500ab8536934f68b75d4ba9f19e86/1?pq-origsite=gscholar&cbl=2037674" class="pub-link" target="_blank">ProQuest</a>
                     </div>
                 </article>
 
-                <article class="publication">
+                <article class="publication-card">
                     <h3 class="pub-title">DehazeCLNet: A Contrastive Learning Framework with Advanced Feature Extraction for Image Dehazing</h3>
                     <div class="pub-authors">Cong Thang Pham, <strong>An Hung Nguyen</strong>, Quoc Cuong Nguyen, Minh Nhat Phan</div>
-                    <div class="pub-venue">SOICT 2024 (Springer CCIS)</div>
+                    <div class="pub-venue">Symposium on Information and Communication Technology (SOICT 2024), Springer CCIS</div>
                     <div class="pub-links">
-                        <a href="https://doi.org/10.1007/978-981-96-4282-3_23" class="pub-link">DOI</a>
+                        <a href="https://doi.org/10.1007/978-981-96-4282-3_23" class="pub-link" target="_blank">DOI</a>
                     </div>
                 </article>
 
-                <article class="publication">
+                <article class="publication-card">
                     <h3 class="pub-title">Enhancing Image Classification Capabilities In The Vision Transformer Network Model With Quaternion Algebra</h3>
                     <div class="pub-authors">Minh Tuan Pham, <strong>An Hung Nguyen</strong></div>
-                    <div class="pub-venue">CITA 2024</div>
+                    <div class="pub-venue">Conference on Information Technology and its Applications (CITA 2024)</div>
                     <div class="pub-links">
-                        <a href="https://elib.vku.udn.vn/handle/123456789/4031" class="pub-link">Link</a>
-                        <a href="paper/QViT.pdf" class="pub-link">PDF</a>
+                        <a href="https://elib.vku.udn.vn/handle/123456789/4031" class="pub-link" target="_blank">Link</a>
                     </div>
                 </article>
 
-                <article class="publication">
+                <article class="publication-card">
                     <h3 class="pub-title">Enhancing Convolutional Neural Network Architectures with Long Short-Term Memory for Improved Image Classification</h3>
                     <div class="pub-authors"><strong>An Hung Nguyen</strong>, Minh Tuan Pham</div>
-                    <div class="pub-venue">IEEE - ATiGB 2023</div>
+                    <div class="pub-venue">International Scientific Conference on Applying New Technology in Green Buildings (ATiGB 2023)</div>
                     <div class="pub-links">
-                        <a href="https://doi.org/10.1109/ATiGB59969.2023.10364368" class="pub-link">DOI</a>
+                        <a href="https://doi.org/10.1109/ATiGB59969.2023.10364368" class="pub-link" target="_blank">DOI</a>
                     </div>
                 </article>
 
-                <article class="publication">
+                <article class="publication-card">
                     <h3 class="pub-title">Quaternion Convolutional Neural Networks for Depth Estimation</h3>
                     <div class="pub-authors"><strong>An Hung Nguyen</strong>, Cao Duy Hoang, Dang Hoang Phu Phan, Minh Tuan Pham</div>
-                    <div class="pub-venue">IEEE - SCIS&ISIS 2022</div>
+                    <div class="pub-venue">IEEE Joint International Conference on Soft Computing and Intelligent Systems (SCIS&ISIS 2022)</div>
                     <div class="pub-links">
-                        <a href="https://doi.org/10.1109/SCISISIS55246.2022.10002074" class="pub-link">DOI</a>
+                        <a href="https://doi.org/10.1109/SCISISIS55246.2022.10002074" class="pub-link" target="_blank">DOI</a>
                     </div>
                 </article>
 
-                <article class="publication">
+                <article class="publication-card">
                     <h3 class="pub-title">Weight Initialization for Complex Number Convolutional Neural Networks Using Genetic Algorithms</h3>
                     <div class="pub-authors">Minh Tuan Pham, <strong>An Hung Nguyen</strong></div>
-                    <div class="pub-venue">CITA 2022</div>
+                    <div class="pub-venue">Conference on Information Technology and its Applications (CITA 2022)</div>
                     <div class="pub-links">
-                        <a href="https://doi.org/10.32913/mic-ict-research-vn.v2022.n1.1054" class="pub-link">DOI</a>
+                        <a href="https://doi.org/10.32913/mic-ict-research-vn.v2022.n1.1054" class="pub-link" target="_blank">DOI</a>
                     </div>
                 </article>
 
-                <article class="publication">
+                <article class="publication-card">
                     <h3 class="pub-title">Efficient Complex Valued Neural Network with Fourier Transform on Image Denoising</h3>
-                    <div class="pub-authors">Minh Tuan Pham, Van Quang Nguyen, Cao Duy Hoang, ..., <strong>An Hung Nguyen</strong></div>
-                    <div class="pub-venue">ACM - ICFNDS 2021</div>
+                    <div class="pub-authors">Minh Tuan Pham, Van Quang Nguyen, Cao Duy Hoang, et al., <strong>An Hung Nguyen</strong></div>
+                    <div class="pub-venue">ACM International Conference on Future Networks and Distributed Systems (ICFNDS 2021)</div>
                     <div class="pub-links">
-                        <a href="https://doi.org/10.1145/3508072.3508081" class="pub-link">DOI</a>
+                        <a href="https://doi.org/10.1145/3508072.3508081" class="pub-link" target="_blank">DOI</a>
                     </div>
                 </article>
             </div>
         </section>
 
-        <section class="section" id="awards">
-            <h2 class="section-title">Highlight Awards</h2>
-            <div class="awards">
-                <div class="award">
-                    <div class="award-date">Dec 2023</div>
-                    <div class="award-title">Vietnam Student Science Research and Innovation 2022-2023 (4th Prize)</div>
-                    <div class="award-desc">Quaternion Convolutional Neural Networks for Image Depth Estimation</div>
-                </div>
-
-                <div class="award">
-                    <div class="award-date">Aug 2021</div>
-                    <div class="award-title">Innovative Generation 2021 - Second Prize (Rank 1st)</div>
-                    <div class="award-desc">Applying Deep Learning to the process of diagnosing, analyzing and detecting damage to the retina due to diabetes</div>
-                </div>
-
-                <div class="award">
-                    <div class="award-date">Mar 2021</div>
-                    <div class="award-title">VISEF - 4th Place Award in Computational Biology and Bioinformatics</div>
-                    <div class="award-desc">Applying Deep Learning to the process of diagnosing, analyzing and detecting damage to the retina due to diabetes</div>
-                </div>
+        <!-- Highlight Awards -->
+        <section class="section reveal">
+            <div class="section-header">
+                <div class="section-number">04</div>
+                <h2 class="section-title">Highlight Awards</h2>
             </div>
-        </section>
-
-        <section class="section" id="education">
-            <h2 class="section-title">Education</h2>
-            <div class="education">
-                <div class="edu-item">
-                    <div class="edu-period">2021 - 2025</div>
-                    <div class="edu-degree">Excellence - Bachelor of Science - BS. Information Technology</div>
-                    <div class="edu-school">University of Science and Technology - Univeristy of Danang, Vietnam</div>
-                </div>
-
-                <div class="edu-item">
-                    <div class="edu-period">2018 - 2021</div>
-                    <div class="edu-degree">National Team - Informatics Student</div>
-                    <div class="edu-school">Le Quy Don - Quang Tri Upper-Secondary School for the Gifted, Vietnam</div>
-                </div>
-            </div>
-        </section>
-
-        <footer class="footer">
-            <p class="footer-text">© Copyright 2025 An Hung Nguyen</p>
-        </footer>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const avatarImg = document.querySelector('.avatar img');
-            const avatarFallback = document.querySelector('.avatar-fallback');
             
-            if (avatarImg) {
-                avatarImg.addEventListener('error', function() {
-                    this.style.display = 'none';
-                    avatarFallback.style.display = 'flex';
-                });
-            }
-
-            // Navigation functionality
-            const nav = document.querySelector('.nav');
-            const navToggle = document.querySelector('.nav-toggle');
-            const navMenu = document.querySelector('.nav-menu');
-            const navLinks = document.querySelectorAll('.nav-link');
-
-            // Scroll effect
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) {
-                    nav.classList.add('scrolled');
-                } else {
-                    nav.classList.remove('scrolled');
-                }
-            });
-
-            // Mobile menu toggle
-            navToggle.addEventListener('click', function() {
-                this.classList.toggle('active');
-                navMenu.classList.toggle('active');
-            });
-
-            // Smooth scrolling for navigation links
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetSection = document.querySelector(targetId);
+            <div class="awards-timeline">
+                <div class="award-item">
+                    <div class="award-date">December 2023</div>
+                    <h3 class="award-title">Vietnam Student Science Research and Innovation 2022-2023</h3>
+                    <p class="award-desc">Fourth Prize for research on Quaternion Convolutional Neural Networks for Image Depth Estimation. <br>
+                    <strong style="color: var(--accent-gold);">Project title:</strong> Quaternion Convolutional Neural Networks for Image Depth Estimation
+                    </p>
                     
-                    if (targetSection) {
-                        const offset = 80;
-                        const targetPosition = targetSection.offsetTop - offset;
-                        
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
+                </div>
 
-                    // Close mobile menu
-                    navToggle.classList.remove('active');
-                    navMenu.classList.remove('active');
-                });
-            });
+                <div class="award-item">
+                    <div class="award-date">August 2021</div>
+                    <h3 class="award-title">Innovative Generation — Second Prize (Ranked 1st)</h3>
+                    <p class="award-desc">Top recognition for developing deep learning systems for diagnosing and detecting diabetic retinopathy, demonstrating practical applications of AI in healthcare.</p>
+                    <strong style="color: var(--accent-gold);">Project title:</strong> Applying Deep Learning to the process of diagnosing, analyzing and detecting damage to the retina due to diabetes
+                </div>
 
-            // Close mobile menu when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!nav.contains(e.target)) {
-                    navToggle.classList.remove('active');
-                    navMenu.classList.remove('active');
+                <div class="award-item">
+                    <div class="award-date">March 2021</div>
+                    <h3 class="award-title">VISEF — Fourth Place in Computational Biology</h3>
+                    <p class="award-desc">Vietnam International Science and Engineering Fair award for applying deep learning to medical image analysis and retinal damage detection.</p>
+                    <strong style="color: var(--accent-gold);">Project title:</strong> Applying Deep Learning to the process of diagnosing, analyzing and detecting damage to the retina due to diabetes
+                </div>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section class="section reveal">
+            <div class="section-header">
+                <div class="section-number">05</div>
+                <h2 class="section-title">Education</h2>
+            </div>
+            
+            <div class="education-grid">
+                <div class="education-card">
+                    <div class="edu-year">2021<br>—<br>2025</div>
+                    <div class="edu-content">
+                        <h3 class="edu-degree">Bachelor of Science - Information Technology</h3>
+                        <p class="edu-school">University of Science and Technology — University of Danang, Vietnam</p>
+                        <div class="award-desc" style="margin-top: 12px; font-size: 0.95rem; color: var(--text-secondary);">
+                            <strong style="color: var(--accent-gold);">GPA:</strong> 3.65/4.0 • <strong style="color: var(--accent-gold);">Distinction:</strong> Excellent Bachelor's Degree<br>
+                            <strong style="color: var(--accent-gold);">Capstone:</strong> A Deep Learning-Based Approach for Multi-Weather Image Restoration and Enhancement<br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="education-card">
+                    <div class="edu-year">2018<br>—<br>2021</div>
+                    <div class="edu-content">
+                        <h3 class="edu-degree">Informatics Class (IT 18-21)</h3>
+                        <p class="edu-school">Le Quy Don Upper-Secondary School for the Gifted, Quang Tri, Vietnam</p>
+                        <div class="award-desc" style="margin-top: 12px; font-size: 0.95rem; color: var(--text-secondary);">
+                            Selected for national-level scientific research competition team and Informatics gifted student team
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">© 2025 An Hung Nguyen. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Smooth scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                 }
             });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(40px)';
+            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(section);
+        });
+
+        // Staggered card animations
+        document.querySelectorAll('.interest-card, .publication-card, .award-item, .education-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+            
+            const cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            cardObserver.observe(card);
         });
     </script>
 </body>

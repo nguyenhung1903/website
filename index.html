@@ -1,1029 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>An Hung Nguyen — AI Researcher</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-dark: #1a2332;
-            --primary-medium: #2d3e50;
-            --accent-gold: #d4a574;
-            --accent-blue: #5b7c99;
-            --text-primary: #1a2332;
-            --text-secondary: #546e7a;
-            --bg-cream: #faf8f5;
-            --bg-white: #ffffff;
-            --border-light: #e8e4df;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'IBM Plex Sans', sans-serif;
-            background: var(--bg-cream);
-            color: var(--text-primary);
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
-
-        /* Typography */
-        h1, h2, h3 {
-            font-family: 'IBM Plex Serif', serif;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-        }
-
-        /* Decorative background */
-        .page-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.03;
-            background-image: 
-                radial-gradient(circle at 20% 30%, var(--accent-gold) 1px, transparent 1px),
-                radial-gradient(circle at 80% 70%, var(--accent-blue) 1px, transparent 1px);
-            background-size: 50px 50px;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-medium) 100%);
-            color: white;
-            padding: 100px 0 80px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 80%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(212, 165, 116, 0.1) 0%, transparent 70%);
-            animation: float 20s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(-30px, 30px) rotate(5deg); }
-        }
-
-        .hero-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 40px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-content {
-            display: grid;
-            grid-template-columns: 180px 1fr;
-            gap: 50px;
-            align-items: start;
-        }
-
-        .profile-image {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            border: 4px solid var(--accent-gold);
-            object-fit: cover;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero-text {
-            animation: fadeInUp 0.8s ease-out 0.2s both;
-        }
-
-        .hero-title {
-            font-size: 4rem;
-            margin-bottom: 12px;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
-        }
-
-        .hero-subtitle {
-            font-size: 1.4rem;
-            font-weight: 300;
-            color: var(--accent-gold);
-            margin-bottom: 30px;
-            font-family: 'IBM Plex Serif', serif;
-            letter-spacing: 0.03em;
-        }
-
-        .hero-bio {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            max-width: 700px;
-            margin-bottom: 35px;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .hero-links {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .hero-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 28px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 6px;
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .hero-link:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: var(--accent-gold);
-            transform: translateY(-2px);
-        }
-
-        /* Main Content */
-        .main-content {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 80px 40px;
-        }
-
-        .section {
-            margin-bottom: 100px;
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        .section-header {
-            margin-bottom: 50px;
-            position: relative;
-        }
-
-        .section-number {
-            font-family: 'IBM Plex Sans', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--accent-gold);
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        .section-title {
-            font-size: 2.8rem;
-            color: var(--primary-dark);
-            margin-bottom: 15px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: var(--accent-gold);
-        }
-
-        .section-intro {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            max-width: 700px;
-            margin-top: 25px;
-            line-height: 1.8;
-        }
-
-        /* Research Interests */
-        .interests-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
-
-        .interest-card {
-            background: var(--bg-white);
-            padding: 35px 30px;
-            border-radius: 8px;
-            border: 1px solid var(--border-light);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .interest-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 3px;
-            height: 0;
-            background: var(--accent-gold);
-            transition: height 0.4s ease;
-        }
-
-        .interest-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-            border-color: var(--accent-gold);
-        }
-
-        .interest-card:hover::before {
-            height: 100%;
-        }
-
-        .interest-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .interest-title {
-            font-size: 1.15rem;
-            font-weight: 600;
-            color: var(--primary-dark);
-            line-height: 1.4;
-        }
-
-        /* Publications */
-        .publications-list {
-            display: flex;
-            flex-direction: column;
-            gap: 35px;
-        }
-
-        .publication-card {
-            background: var(--bg-white);
-            padding: 40px;
-            border-radius: 8px;
-            border: 1px solid var(--border-light);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .publication-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-gold) 0%, transparent 100%);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
-        }
-
-        .publication-card:hover {
-            border-color: var(--accent-gold);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
-        }
-
-        .publication-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .pub-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--primary-dark);
-            margin-bottom: 15px;
-            line-height: 1.5;
-            font-family: 'IBM Plex Serif', serif;
-        }
-
-        .pub-authors {
-            font-size: 0.95rem;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-            line-height: 1.6;
-        }
-
-        .pub-authors strong {
-            color: var(--accent-gold);
-            font-weight: 600;
-        }
-
-        .pub-venue {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            font-style: italic;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-
-        .pub-links {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .pub-link {
-            display: inline-block;
-            padding: 8px 20px;
-            background: transparent;
-            border: 1px solid var(--border-light);
-            color: var(--text-primary);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-
-        .pub-link:hover {
-            background: var(--accent-gold);
-            border-color: var(--accent-gold);
-            color: white;
-        }
-
-        /* Experience specific styles */
-        .experience-role {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--primary-dark);
-            margin-bottom: 15px;
-            line-height: 1.5;
-            font-family: 'IBM Plex Serif', serif;
-        }
-
-        .experience-company {
-            font-size: 0.95rem;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-            line-height: 1.6;
-        }
-
-        .experience-company strong {
-            color: var(--accent-gold);
-            font-weight: 600;
-        }
-
-        /* Awards */
-        .awards-timeline {
-            position: relative;
-            padding-left: 50px;
-        }
-
-        .awards-timeline::before {
-            content: '';
-            position: absolute;
-            left: 20px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, var(--accent-gold) 0%, transparent 100%);
-        }
-
-        .award-item {
-            position: relative;
-            margin-bottom: 45px;
-            padding: 30px 35px;
-            background: var(--bg-white);
-            border-radius: 8px;
-            border: 1px solid var(--border-light);
-            transition: all 0.3s ease;
-        }
-
-        .award-item::before {
-            content: '';
-            position: absolute;
-            left: -35px;
-            top: 35px;
-            width: 12px;
-            height: 12px;
-            background: var(--accent-gold);
-            border-radius: 50%;
-            border: 3px solid var(--bg-cream);
-        }
-
-        .award-item:hover {
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
-            border-color: var(--accent-gold);
-        }
-
-        .award-date {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--accent-blue);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 12px;
-        }
-
-        .award-title {
-            font-size: 1.15rem;
-            font-weight: 600;
-            color: var(--primary-dark);
-            margin-bottom: 10px;
-            font-family: 'IBM Plex Serif', serif;
-        }
-
-        .award-desc {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* Education */
-        .education-grid {
-            display: grid;
-            gap: 30px;
-        }
-
-        .education-card {
-            display: grid;
-            grid-template-columns: 140px 1fr;
-            gap: 35px;
-            background: var(--bg-white);
-            padding: 40px;
-            border-radius: 8px;
-            border: 1px solid var(--border-light);
-            transition: all 0.3s ease;
-            align-items: start;
-        }
-
-        .education-card:hover {
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
-            border-color: var(--accent-gold);
-        }
-
-        .edu-year {
-            font-family: 'IBM Plex Serif', serif;
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: var(--accent-gold);
-            line-height: 1.2;
-            padding-top: 5px;
-        }
-
-        .edu-content {
-        }
-
-        .edu-degree {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--primary-dark);
-            margin-bottom: 10px;
-            line-height: 1.4;
-            font-family: 'IBM Plex Serif', serif;
-        }
-
-        .edu-school {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--primary-dark);
-            color: rgba(255, 255, 255, 0.7);
-            padding: 50px 40px;
-            text-align: center;
-            margin-top: 100px;
-        }
-
-        .footer-content {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .footer-text {
-            font-size: 0.9rem;
-            font-weight: 300;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 968px) {
-            .hero-content {
-                grid-template-columns: 150px 1fr;
-                gap: 35px;
-            }
-
-            .profile-image {
-                width: 150px;
-                height: 150px;
-            }
-
-            .hero-title {
-                font-size: 3rem;
-            }
-
-            .interests-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .education-card {
-                grid-template-columns: 120px 1fr;
-                gap: 25px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero {
-                padding: 80px 0 60px;
-            }
-
-            .hero-container {
-                padding: 0 25px;
-            }
-
-            .hero-content {
-                grid-template-columns: 1fr;
-                gap: 30px;
-                text-align: center;
-            }
-
-            .profile-image {
-                width: 140px;
-                height: 140px;
-                margin: 0 auto;
-            }
-
-            .hero-title {
-                font-size: 2.5rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1.2rem;
-            }
-
-            .hero-bio {
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .hero-links {
-                justify-content: center;
-            }
-
-            .main-content {
-                padding: 60px 25px;
-            }
-
-            .section {
-                margin-bottom: 70px;
-            }
-
-            .section-title {
-                font-size: 2.2rem;
-            }
-
-            .interests-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .publication-card {
-                padding: 30px 25px;
-            }
-
-            .awards-timeline {
-                padding-left: 40px;
-            }
-
-            .education-card {
-                grid-template-columns: 1fr;
-                gap: 20px;
-                padding: 30px 25px;
-            }
-
-            .edu-year {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-title {
-                font-size: 2rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-
-            .hero-link {
-                padding: 10px 20px;
-                font-size: 0.85rem;
-            }
-        }
-
-        /* Scroll reveal animation */
-        @keyframes revealUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .reveal {
-            animation: revealUp 0.8s ease-out both;
-        }
-
-        .reveal-delay-1 { animation-delay: 0.1s; }
-        .reveal-delay-2 { animation-delay: 0.2s; }
-        .reveal-delay-3 { animation-delay: 0.3s; }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>An Hung Nguyen — Computer Scientist / AI Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --surface:#ffffff; --ink:#1a1a1a; --muted:#5f5f5f; --line:#e6e6e6; --accent:#1a1a1a; --accent-soft:#f3f3f3;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#0e0e0e; --surface:#161616; --ink:#ededed; --muted:#9a9a9a; --line:#262626; --accent:#ededed; --accent-soft:#1c1c1c;}
+}
+:root[data-theme="dark"]{--bg:#0e0e0e; --surface:#161616; --ink:#ededed; --muted:#9a9a9a; --line:#262626; --accent:#ededed; --accent-soft:#1c1c1c;}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.7 "Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px}
+
+/* Top header */
+.top{display:flex;gap:32px;align-items:center;padding:48px 0 32px;position:relative}
+.avatar{width:128px;height:128px;flex:none;border-radius:50%;background:var(--accent-soft);border:2px solid var(--accent);object-fit:cover}
+.intro{min-width:0}
+h1{font:700 clamp(2rem,4.5vw,2.8rem)/1.15 "Be Vietnam Pro",system-ui,sans-serif;margin:0 0 6px;letter-spacing:-.015em;animation:clear 1.2s ease-out both}
+@keyframes clear{from{filter:blur(12px);opacity:.25}to{filter:blur(0);opacity:1}}
+.role{font:500 1.15rem/1.4 "Be Vietnam Pro",system-ui,sans-serif;color:var(--accent);margin:0 0 4px}
+.meta{font-size:.95rem;color:var(--muted);margin:0 0 14px}
+.links{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:6px 22px;font-size:.93rem}
+.links li{padding:2px 0}
+.theme{position:absolute;top:20px;right:0;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:none;border:1px solid var(--line);color:var(--muted);border-radius:50%;padding:0;cursor:pointer}
+.theme:hover{color:var(--ink);border-color:var(--muted)}
+.theme:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.theme .ic{margin:0;width:20px;height:20px;vertical-align:0}
+.theme .sun{display:none}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .theme .sun{display:block}:root:not([data-theme="light"]) .theme .moon{display:none}}
+:root[data-theme="dark"] .theme .sun{display:block}
+:root[data-theme="dark"] .theme .moon{display:none}
+
+/* Sticky nav */
+.navbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+nav{display:flex;gap:4px 24px;overflow-x:auto;font-size:.93rem;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{color:var(--muted);text-decoration:none;padding:14px 0 12px;border-bottom:2px solid transparent;white-space:nowrap}
+nav a.ext{margin-left:auto;display:inline-flex;align-items:center;gap:6px;color:var(--ink);font-weight:500;padding-left:24px}
+nav a.ext .ic{margin:0;width:14px;height:14px;vertical-align:0}
+nav a:hover,nav a.on{color:var(--ink);border-bottom-color:var(--accent)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+
+main{padding:48px 0 80px}
+section{margin-bottom:56px}
+h2{font:700 1.5rem/1.3 "Be Vietnam Pro",system-ui,sans-serif;margin:0 0 24px;padding-bottom:10px;border-bottom:1px solid var(--line);letter-spacing:-.01em}
+.lead{font:400 1.05rem/1.8 "Be Vietnam Pro",system-ui,sans-serif;margin:0;max-width:72ch}
+#profile .lead{text-align:justify;text-justify:inter-word;hyphens:auto;max-width:none}
+.entry{display:grid;grid-template-columns:150px minmax(0,1fr);gap:8px 24px;padding:0 0 28px;margin-bottom:28px;border-bottom:1px solid var(--line)}
+.entry:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+.when{color:var(--muted);font-size:.88rem;padding-top:3px}
+.entry h3{margin:0;font-size:1.05rem;font-weight:600}
+.org{margin:0 0 8px;color:var(--muted);font-size:.93rem}
+.entry ul{margin:8px 0 0;padding-left:18px}
+.entry li{margin:5px 0;max-width:72ch}
+.tl{list-style:none;margin:0 0 0 6px;padding:0;border-left:2px solid var(--line)}
+.tl li{position:relative;padding:0 0 24px 26px}
+.tl li:last-child{padding-bottom:0}
+.tl li::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--bg)}
+.tl .when{display:block;padding:0 0 2px}
+.tl h3{margin:0;font-size:1.05rem;font-weight:600}
+.tl .org{margin:0}
+.pubs{list-style:none;padding:0;margin:0;counter-reset:p}
+.pubs li{counter-increment:p;display:grid;grid-template-columns:38px minmax(0,1fr);padding:0 0 20px}
+.pubs li::before{content:"[" counter(p) "]";color:var(--muted);font-size:.88rem;padding-top:2px}
+.pubs b{font-weight:600;display:block}
+.pubs small{display:block;color:var(--muted);font-size:.88rem;margin-top:2px}
+.status{display:inline-block;background:var(--accent-soft);border-radius:4px;padding:0 8px;font-size:.78rem;margin-left:6px;white-space:nowrap}
+.ic{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:-3px;margin-right:8px}
+.ic.h{width:22px;height:22px;color:var(--accent);vertical-align:-3px;margin-right:12px}
+.topics{list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px 24px}
+.topics li{border-left:2px solid var(--accent);padding:4px 0 4px 12px}
+footer{color:var(--muted);font-size:.85rem}
+@media (max-width:640px){
+  .top{flex-direction:column;align-items:flex-start;gap:20px;padding-top:64px}
+  .entry{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){h1{animation:none}html{scroll-behavior:auto}}
+@media print{.navbar,.theme,body::before{display:none}}
+</style>
 </head>
 <body>
-    <div class="page-bg"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
+<symbol id="i-github" viewBox="0 0 24 24"><path d="M9 19c-4 1.5-4-2-6-2m12 4v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></symbol>
+<symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/></symbol>
+<symbol id="i-cap" viewBox="0 0 24 24"><path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5M22 9v6"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 20h16"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></symbol>
+<symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6L4 20h16l-6-11V3"/></symbol>
+<symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24"><path d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4z"/><path d="M8 4v16"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-ext" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+<symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/></symbol>
+</svg>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <img src="./assets/avatar_2023.JPG" alt="An Hung Nguyen" class="profile-image" onerror="this.style.display='none'">
-                
-                <div class="hero-text">
-                    <h1 class="hero-title">An Hung Nguyen</h1>
-                    <p class="hero-subtitle">Computer Scientist & AI Researcher</p>
-                    <a href="mailto:info@nguyenhung.me" class="hero-bio hero-link">📧 info@nguyenhung.me</a>
-                    
-                    <p class="hero-bio">
-                        Researcher specializing in artificial intelligence, computational biology, and neural rendering. My work bridges mathematics and deep learning, with particular focus on quaternion-based architectures and medical imaging applications.
-                    </p>
-                    
-                    <div class="hero-links">
-                        <a href="/resume.html" class="hero-link" target="_blank">
-                            <span>📄</span>
-                            <span>CV</span>
-                        </a>
-                        
-                        <a href="https://scholar.google.com/citations?user=OLV8FnYAAAAJ&hl=en" class="hero-link" target="_blank">
-                            <span>🎓</span>
-                            <span>Google Scholar</span>
-                        </a>
-                        <a href="https://github.com/nguyenhung1903" class="hero-link" target="_blank">
-                            <span>💻</span>
-                            <span>GitHub</span>
-                        </a>
-                        <a href="https://www.linkedin.com/in/nguyenhung1903" class="hero-link" target="_blank">
-                            <span>💼</span>
-                            <span>LinkedIn</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="wrap">
+  <header class="top">
+    <img class="avatar" src="https://nguyenhung.me/assets/avatar_2023.JPG" alt="An Hung Nguyen">
+    <div class="intro">
+      <h1>An Hung Nguyen</h1>
+      <p class="role">Computer Scientist / AI Researcher</p>
+      <p class="meta">Da Nang, Vietnam</p>
+      <ul class="links">
+        <li><a href="mailto:nguyenanhung1903@gmail.com"><svg class="ic"><use href="#i-mail"/></svg>nguyenanhung1903@gmail.com</a></li>
+        <li><a href="https://github.com/nguyenhung1903"><svg class="ic"><use href="#i-github"/></svg>GitHub</a></li>
+        <li><a href="https://linkedin.com/in/nguyenhung1903"><svg class="ic"><use href="#i-linkedin"/></svg>LinkedIn</a></li>
+        <li><a href="./resume.html"><svg class="ic"><use href="#i-download"/></svg>Curriculum Vitae</a></li>
+        <li><a href="https://scholar.google.com/citations?user=OLV8FnYAAAAJ&amp;hl=en"><svg class="ic"><use href="#i-cap"/></svg>Google Scholar</a></li>
+      </ul>
+    </div>
+    <button class="theme" id="theme" type="button" aria-label="Switch theme" title="Switch theme"><svg class="ic moon"><use href="#i-moon"/></svg><svg class="ic sun"><use href="#i-sun"/></svg></button>
+  </header>
+</div>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        
-        <!-- Research Interests -->
-        <section class="section reveal">
-            <div class="section-header">
-                <div class="section-number">01</div>
-                <h2 class="section-title">Research Interests</h2>
-                <p class="section-intro">
-                    My research explores the intersection of advanced mathematics and artificial intelligence, with applications in medical imaging, computer vision, and real-time rendering systems.
-                </p>
-            </div>
-            
-            <div class="interests-grid">
-                <div class="interest-card reveal-delay-1">
-                    <span class="interest-icon">🧬</span>
-                    <h3 class="interest-title">Computational Biology & Bioinformatics</h3>
-                </div>
-                
-                <div class="interest-card reveal-delay-2">
-                    <span class="interest-icon">🔢</span>
-                    <h3 class="interest-title">Mathematics & Hypercomplex Number Systems</h3>
-                </div>
-                
-                <div class="interest-card reveal-delay-3">
-                    <span class="interest-icon">🎯</span>
-                    <h3 class="interest-title">Quaternion Neural Architectures</h3>
-                </div>
-                
-                <div class="interest-card reveal-delay-1">
-                    <span class="interest-icon">👁️</span>
-                    <h3 class="interest-title">View Synthesis & Neural Rendering</h3>
-                </div>
-                
-                <div class="interest-card reveal-delay-2">
-                    <span class="interest-icon">⚡</span>
-                    <h3 class="interest-title">Real-time Graphics Processing</h3>
-                </div>
-                
-                <div class="interest-card reveal-delay-3">
-                    <span class="interest-icon">🏥</span>
-                    <h3 class="interest-title">Deep Learning in Medicine</h3>
-                </div>
-            </div>
-        </section>
+<div class="navbar">
+  <div class="wrap">
+    <nav id="nav">
+      <a href="#profile">Profile</a>
+      <a href="#research">Research interests</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#publications">Publications</a>
+      <a href="#awards">Highlight awards</a>
+      <a class="ext" href="https://blog.nguyenhung.me" target="_blank" rel="noopener">Blog<svg class="ic" aria-hidden="true"><use href="#i-ext"/></svg></a>
+    </nav>
+  </div>
+</div>
 
-        <!-- Work Experience -->
-        <section class="section reveal">
-            <div class="section-header">
-                <div class="section-number">02</div>
-                <h2 class="section-title">Work Experience</h2>
-                <p class="section-intro">
-                    Professional experience in AI research, engineering, and software development across international organizations.
-                </p>
-            </div>
-            
-            <div class="publications-list">
-                <article class="publication-card">
-                    <div class="pub-title">Computer Scientist & AI Engineer</div>
-                    <div class="pub-authors"><strong>SLA Software Logistik Artland GmbH</strong> — Germany (Remote)</div>
-                    <div class="pub-venue">August 2024 - September 2026</div>
-                    <div class="award-desc" style="margin-top: 15px; margin-bottom: 15px;">
-                        Integrated AI models into customer infrastructure and developed neural network architectures for detecting and segmenting animal pathogens. Automated data handling processes for signal processing using Python (PyTorch, NumPy, Pandas, Scikit-learn), C++, and Linux tools.
-                    </div>
-                    <div class="pub-links">
-                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">Medical Research</span>
-                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">Deep Learning</span>
-                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">Data Engineering</span>
-                    </div>
-                </article>
+<div class="wrap">
+<main>
+<section id="profile">
+  <h2><svg class="ic h"><use href="#i-user"/></svg>Profile</h2>
+  <p class="lead">AI Engineer with 5+ years of experience in Computer Vision, bridging academic research and real-world applications. I build end-to-end machine learning pipelines, from data analysis and model training to optimization and deployment on edge devices. I also work with Large Language Models (LLMs) and help customers make their AI solutions more reliable, scalable and cost-efficient.</p>
+  <p class="lead" style="margin-top:16px">I have authored and co-authored 10+ research papers and received several academic awards in high school and university. My work bridges mathematics and deep learning, with a focus on quaternion-based architectures and medical imaging.</p>
+</section>
 
-                <article class="publication-card">
-                    <div class="pub-title">Collaboration Researcher</div>
-                    <div class="pub-authors"><strong>University of Regina</strong> — Canada</div>
-                    <div class="pub-venue">August 2024 - September 2025</div>
-                    <div class="award-desc" style="margin-top: 15px; margin-bottom: 15px;">
-                        Researched solutions for simulating chemical processes. Implemented simulation code using Matlab and Python for computational chemistry applications.
-                    </div>
-                    <div class="pub-links">
-                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">Simulation</span>
-                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">Matlab</span>
-                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">Python</span>
-                    </div>
-                </article>
+<section id="research">
+  <h2><svg class="ic h"><use href="#i-flask"/></svg>Research interests</h2>
+  <p class="lead">My research sits between advanced mathematics and artificial intelligence, with applications in medical imaging, computer vision and real-time rendering.</p>
+  <ul class="topics">
+    <li>Computational biology and bioinformatics</li>
+    <li>Mathematics and hypercomplex number systems</li>
+    <li>Quaternion neural architectures</li>
+    <li>View synthesis and neural rendering</li>
+    <li>Real-time graphics processing</li>
+    <li>Deep learning in medicine</li>
+  </ul>
+</section>
 
-                <article class="publication-card">
-                    <div class="pub-title">AI Intern</div>
-                    <div class="pub-authors"><strong>Phygital Labs</strong> — Vietnam</div>
-                    <div class="pub-venue">May 2024 - July 2024</div>
-                    <div class="award-desc" style="margin-top: 15px; margin-bottom: 15px;">
-                        Worked on deep learning projects with LLM models to develop solutions for querying large documents. Collaborated with a former Senior Google engineer on system deployment.
-                    </div>
-                    <div class="pub-links">
-                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">LLM</span>
-                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">NLP</span>
-                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">System Deployment</span>
-                    </div>
-                </article>
+<section id="experience">
+  <h2><svg class="ic h"><use href="#i-briefcase"/></svg>Work experience</h2>
+  <ul class="tl">
+    <li><span class="when">Aug 2025 – Sept 2026</span><h3>AI Software Engineer</h3><p class="org">SLA Software Logistik Artland GmbH · Germany (Remote)</p></li>
+    <li><span class="when">Aug 2024 – Sept 2026</span><h3>Computer Scientist &amp; AI Engineer</h3><p class="org">SLA Software Logistik Artland GmbH · Germany (Remote)</p></li>
+    <li><span class="when">Aug 2024 – Sept 2025</span><h3>Collaboration Researcher</h3><p class="org">University of Regina · Canada</p></li>
+    <li><span class="when">May 2024 – Jul 2024</span><h3>AI Intern</h3><p class="org">Phygital Labs · Vietnam</p></li>
+    <li><span class="when">Jan 2022 – Jul 2024</span><h3>Computer Scientist &amp; AI Engineer</h3><p class="org">FX Data · Germany (Remote)</p></li>
+    <li><span class="when">Oct 2021 – Dec 2021</span><h3>AI Engineer</h3><p class="org">Rhen Consulting · Germany (Remote)</p></li>
+  </ul>
+</section>
 
-                <article class="publication-card">
-                    <div class="pub-title">Computer Scientist & AI Engineer</div>
-                    <div class="pub-authors"><strong>FX Data</strong> — Germany (Remote)</div>
-                    <div class="pub-venue">January 2022 - July 2024</div>
-                    <div class="award-desc" style="margin-top: 15px; margin-bottom: 15px;">
-                        Developed neural network architectures for detecting and segmenting animal pathogens. Created automation scripts for data handling and optimized signal processing workflows with Linux tools and shell scripting.
-                    </div>
-                    <div class="pub-links">
-                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">PyTorch</span>
-                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">Medical AI</span>
-                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">Automation</span>
-                    </div>
-                </article>
+<section id="education">
+  <h2><svg class="ic h"><use href="#i-cap"/></svg>Education</h2>
+  <article class="entry">
+    <div class="when">2021 – 2025</div>
+    <div>
+      <h3>B.S., Information Technology</h3>
+      <p class="org">University of Science and Technology, The University of Danang · Da Nang, VN</p>
+      <ul>
+        <li>GPA 3.65/4.0, Excellent Bachelor’s Degree.</li>
+        <li>AI researcher with Minh Tuan Pham, PhD.</li>
+        <li>Capstone: A Deep Learning-Based Approach for Multi-Weather Image Restoration and Enhancement (<a href="http://thuvienso.dut.udn.vn/handle/DUT/16775">thesis</a>).</li>
+        <li>Courses: Data Science, Programming for Data Science, Knowledge Representation and Reasoning, Statistical Theory and Methods, Artificial Intelligence, Machine Learning, Statistical Learning.</li>
+      </ul>
+    </div>
+  </article>
+  <article class="entry">
+    <div class="when">2018 – 2021</div>
+    <div>
+      <h3>Informatics class (IT 18-21)</h3>
+      <p class="org">Le Quy Don Upper-Secondary School for the Gifted · Quang Tri, VN</p>
+      <ul>
+        <li>Specialised in Biology, Informatics, and Mathematics with Computer Science.</li>
+        <li>Member of the national-level scientific research competition team and the Informatics gifted student team.</li>
+      </ul>
+    </div>
+  </article>
+</section>
 
-                <article class="publication-card">
-                    <div class="pub-title">AI Engineer</div>
-                    <div class="pub-authors"><strong>Rhen Consulting</strong> — Germany (Remote)</div>
-                    <div class="pub-venue">October 2021 - December 2021</div>
-                    <div class="award-desc" style="margin-top: 15px; margin-bottom: 15px;">
-                        Collaborated with AI team to develop neural network architectures for pathogen detection and segmentation. Developed automation scripts for data processing with Linux distributions and shell scripting.
-                    </div>
-                    <div class="pub-links">
-                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">Neural Networks</span>
-                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">Automation</span>
-                        <span class="pub-link" style="cursor: default; background: var(--bg-cream);">Linux</span>
-                    </div>
-                </article>
-            </div>
-        </section>
+<section id="publications">
+  <h2><svg class="ic h"><use href="#i-book"/></svg>Publications</h2>
+  <ol class="pubs">
+    <li><div><b>All-in-One Image Restoration with Quaternion Cross-Attention and Haar Frequency Decomposition</b><small>Signal, Image and Video Processing (Q2), 2025 <span class="status">Under review</span></small><small>An Hung Nguyen, Minh Tuan Pham · <a href="https://dx.doi.org/10.21203/rs.3.rs-7260641/v1">10.21203/rs.3.rs-7260641/v1</a> · from my capstone thesis</small></div></li>
+    <li><div><b>Optimizing Retrieval in Vietnamese Literary QA Using Named-Entity Relationship Graphs</b><small>ACM Transactions on Asian and Low-Resource Language Information Processing (Q2), 2025 <span class="status">Under review</span></small><small>Minh Tuan Pham, An Hung Nguyen, Phuc Hao Do, Thanh Huy Nguyen, Nam Do</small></div></li>
+    <li><div><b>Real-Time 3D Reconstruction through Image Synthesis and IoT Integration</b><small>Vestnik St. Petersburg University: Mathematics, 2025 <span class="status">Under review</span></small><small>Cong Thang Pham, An Hung Nguyen, Tan Sang Truong, Dai Quy Tran, Si Tien Tran</small></div></li>
+    <li><div><b>Adaptive Hybrid Transformer Network with Frequency Attention for All-in-One Image Restoration</b><small>PSBB25, Moscow, Russia · June 9–11, 2025</small><small>Cong Thang Pham, An Hung Nguyen, Quoc Cuong Nguyen, Minh Nhat Phan, Thanh Than Nguyen · <a href="https://doi.org/10.5194/isprs-archives-XLVIII-2-W9-2025-213-2025">DOI</a> · <a href="https://www.proquest.com/openview/7a6500ab8536934f68b75d4ba9f19e86/1?pq-origsite=gscholar&amp;cbl=2037674">ProQuest</a></small></div></li>
+    <li><div><b>DehazeCLNet: A Contrastive Learning Framework with Advanced Feature Extraction for Image Dehazing</b><small>SOICT 2024 (Springer CCIS), Da Nang · December 13–15, 2024</small><small>Cong Thang Pham, An Hung Nguyen, Quoc Cuong Nguyen, Minh Nhat Phan · <a href="https://doi.org/10.1007/978-981-96-4282-3_23">DOI</a></small></div></li>
+    <li><div><b>Enhancing Image Classification Capabilities in the Vision Transformer Network Model with Quaternion Algebra</b><small>CITA 2024, Da Nang · July 2024</small><small>Minh Tuan Pham, An Hung Nguyen · <a href="https://elib.vku.udn.vn/handle/123456789/4031">Link</a> · <a href="https://nguyenhung.me/paper/QViT.pdf">PDF</a></small></div></li>
+    <li><div><b>Enhancing Convolutional Neural Network Architectures with Long Short-Term Memory for Improved Image Classification</b><small>ATiGB 2023, International Scientific Conference on Applying New Technology in Green Buildings (IEEE), Da Nang · November 10–11, 2023</small><small>An Hung Nguyen, Minh Tuan Pham · <a href="https://doi.org/10.1109/ATiGB59969.2023.10364368">DOI</a></small></div></li>
+    <li><div><b>Quaternion Convolutional Neural Networks for Depth Estimation</b><small>SCIS&amp;ISIS 2022, IEEE Joint International Conference on Soft Computing and Intelligent Systems, Mie, Japan · January 4, 2023</small><small>An Hung Nguyen, Cao Duy Hoang, Dang Hoang Phu Phan, Minh Tuan Pham · <a href="https://doi.org/10.1109/SCISISIS55246.2022.10002074">DOI</a></small></div></li>
+    <li><div><b>Weight Initialization for Complex Number Convolutional Neural Networks Using Genetic Algorithms</b><small>Journal on Information Technologies and Communications, Vietnam · June 30, 2022</small><small>Minh Tuan Pham, An Hung Nguyen · <a href="https://doi.org/10.32913/mic-ict-research-vn.v2022.n1.1054">DOI</a></small></div></li>
+    <li><div><b>Efficient Complex Valued Neural Network with Fourier Transform on Image Denoising</b><small>ICFNDS 2021, ACM International Conference on Future Networks and Distributed Systems, Dubai, UAE · December 16, 2021</small><small>Minh Tuan Pham, Van Quang Nguyen, Cao Duy Hoang, An Hung Nguyen · <a href="https://doi.org/10.1145/3508072.3508081">DOI</a></small></div></li>
+  </ol>
+</section>
 
-        <!-- Publications -->
-        <section class="section reveal">
-            <div class="section-header">
-                <div class="section-number">03</div>
-                <h2 class="section-title">Publications</h2>
-                <p class="section-intro">
-                    Selected peer-reviewed publications in international conferences and journals.
-                </p>
-            </div>
-            
-            <div class="publications-list">
-                <article class="publication-card">
-                    <h3 class="pub-title">Adaptive Hybrid Transformer Network with Frequency Attention for All-in-One Image Restoration</h3>
-                    <div class="pub-authors">Cong Thang Pham, <strong>An Hung Nguyen</strong>, Quoc Cuong Nguyen, Minh Nhat Phan, Thanh Than Nguyen</div>
-                    <div class="pub-venue">International Workshop "Photogrammetric techniques for environmental and infraStructure monitoring, Biometrics and Biomedicine" - PSBB25</div>
-                    <div class="pub-links">
-                        <a href="https://doi.org/10.5194/isprs-archives-XLVIII-2-W9-2025-213-2025" class="pub-link" target="_blank">DOI</a>
-                        <a href="https://www.proquest.com/openview/7a6500ab8536934f68b75d4ba9f19e86/1?pq-origsite=gscholar&cbl=2037674" class="pub-link" target="_blank">ProQuest</a>
-                    </div>
-                </article>
+<section id="awards">
+  <h2><svg class="ic h"><use href="#i-award"/></svg>Highlight awards</h2>
+  <article class="entry">
+    <div class="when">Dec 2023</div>
+    <div>
+      <h3>Fourth Place, Science, Engineering and Technology</h3>
+      <p class="org">Vietnam Student Science Research and Innovation 2022–2023</p>
+      <p style="margin:0">Quaternion Convolutional Neural Networks for Image Depth Estimation</p>
+    </div>
+  </article>
+  <article class="entry">
+    <div class="when">Aug 2021</div>
+    <div>
+      <h3>Second Prize (Ranked 1st), Innovative Generation 2021</h3>
+      <p style="margin:0">Applying deep learning to diagnose, analyze and detect retinal damage caused by diabetes</p>
+    </div>
+  </article>
+  <article class="entry">
+    <div class="when">Mar 2021</div>
+    <div>
+      <h3>Fourth Place, Computational Biology and Bioinformatics</h3>
+      <p class="org">Vietnam National Secondary Student Science and Engineering Fair</p>
+      <p style="margin:0">Applying deep learning to diagnose, analyze and detect retinal damage caused by diabetes</p>
+    </div>
+  </article>
+</section>
 
-                <article class="publication-card">
-                    <h3 class="pub-title">DehazeCLNet: A Contrastive Learning Framework with Advanced Feature Extraction for Image Dehazing</h3>
-                    <div class="pub-authors">Cong Thang Pham, <strong>An Hung Nguyen</strong>, Quoc Cuong Nguyen, Minh Nhat Phan</div>
-                    <div class="pub-venue">Symposium on Information and Communication Technology (SOICT 2024), Springer CCIS</div>
-                    <div class="pub-links">
-                        <a href="https://doi.org/10.1007/978-981-96-4282-3_23" class="pub-link" target="_blank">DOI</a>
-                    </div>
-                </article>
+<footer>© 2026 An Hung Nguyen</footer>
+</main>
+</div>
 
-                <article class="publication-card">
-                    <h3 class="pub-title">Enhancing Image Classification Capabilities In The Vision Transformer Network Model With Quaternion Algebra</h3>
-                    <div class="pub-authors">Minh Tuan Pham, <strong>An Hung Nguyen</strong></div>
-                    <div class="pub-venue">Conference on Information Technology and its Applications (CITA 2024)</div>
-                    <div class="pub-links">
-                        <a href="https://elib.vku.udn.vn/handle/123456789/4031" class="pub-link" target="_blank">Link</a>
-                    </div>
-                </article>
-
-                <article class="publication-card">
-                    <h3 class="pub-title">Enhancing Convolutional Neural Network Architectures with Long Short-Term Memory for Improved Image Classification</h3>
-                    <div class="pub-authors"><strong>An Hung Nguyen</strong>, Minh Tuan Pham</div>
-                    <div class="pub-venue">International Scientific Conference on Applying New Technology in Green Buildings (ATiGB 2023)</div>
-                    <div class="pub-links">
-                        <a href="https://doi.org/10.1109/ATiGB59969.2023.10364368" class="pub-link" target="_blank">DOI</a>
-                    </div>
-                </article>
-
-                <article class="publication-card">
-                    <h3 class="pub-title">Quaternion Convolutional Neural Networks for Depth Estimation</h3>
-                    <div class="pub-authors"><strong>An Hung Nguyen</strong>, Cao Duy Hoang, Dang Hoang Phu Phan, Minh Tuan Pham</div>
-                    <div class="pub-venue">IEEE Joint International Conference on Soft Computing and Intelligent Systems (SCIS&ISIS 2022)</div>
-                    <div class="pub-links">
-                        <a href="https://doi.org/10.1109/SCISISIS55246.2022.10002074" class="pub-link" target="_blank">DOI</a>
-                    </div>
-                </article>
-
-                <article class="publication-card">
-                    <h3 class="pub-title">Weight Initialization for Complex Number Convolutional Neural Networks Using Genetic Algorithms</h3>
-                    <div class="pub-authors">Minh Tuan Pham, <strong>An Hung Nguyen</strong></div>
-                    <div class="pub-venue">Conference on Information Technology and its Applications (CITA 2022)</div>
-                    <div class="pub-links">
-                        <a href="https://doi.org/10.32913/mic-ict-research-vn.v2022.n1.1054" class="pub-link" target="_blank">DOI</a>
-                    </div>
-                </article>
-
-                <article class="publication-card">
-                    <h3 class="pub-title">Efficient Complex Valued Neural Network with Fourier Transform on Image Denoising</h3>
-                    <div class="pub-authors">Minh Tuan Pham, Van Quang Nguyen, Cao Duy Hoang, et al., <strong>An Hung Nguyen</strong></div>
-                    <div class="pub-venue">ACM International Conference on Future Networks and Distributed Systems (ICFNDS 2021)</div>
-                    <div class="pub-links">
-                        <a href="https://doi.org/10.1145/3508072.3508081" class="pub-link" target="_blank">DOI</a>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <!-- Highlight Awards -->
-        <section class="section reveal">
-            <div class="section-header">
-                <div class="section-number">04</div>
-                <h2 class="section-title">Highlight Awards</h2>
-            </div>
-            
-            <div class="awards-timeline">
-                <div class="award-item">
-                    <div class="award-date">December 2023</div>
-                    <h3 class="award-title">Vietnam Student Science Research and Innovation 2022-2023</h3>
-                    <p class="award-desc">Fourth Prize for research on Quaternion Convolutional Neural Networks for Image Depth Estimation. <br>
-                    <strong style="color: var(--accent-gold);">Project title:</strong> Quaternion Convolutional Neural Networks for Image Depth Estimation
-                    </p>
-                    
-                </div>
-
-                <div class="award-item">
-                    <div class="award-date">August 2021</div>
-                    <h3 class="award-title">Innovative Generation — Second Prize (Ranked 1st)</h3>
-                    <p class="award-desc">Top recognition for developing deep learning systems for diagnosing and detecting diabetic retinopathy, demonstrating practical applications of AI in healthcare.</p>
-                    <strong style="color: var(--accent-gold);">Project title:</strong> Applying Deep Learning to the process of diagnosing, analyzing and detecting damage to the retina due to diabetes
-                </div>
-
-                <div class="award-item">
-                    <div class="award-date">March 2021</div>
-                    <h3 class="award-title">VISEF — Fourth Place in Computational Biology</h3>
-                    <p class="award-desc">Vietnam International Science and Engineering Fair award for applying deep learning to medical image analysis and retinal damage detection.</p>
-                    <strong style="color: var(--accent-gold);">Project title:</strong> Applying Deep Learning to the process of diagnosing, analyzing and detecting damage to the retina due to diabetes
-                </div>
-            </div>
-        </section>
-
-        <!-- Education -->
-        <section class="section reveal">
-            <div class="section-header">
-                <div class="section-number">05</div>
-                <h2 class="section-title">Education</h2>
-            </div>
-            
-            <div class="education-grid">
-                <div class="education-card">
-                    <div class="edu-year">2021<br>—<br>2025</div>
-                    <div class="edu-content">
-                        <h3 class="edu-degree">Bachelor of Science - Information Technology</h3>
-                        <p class="edu-school">University of Science and Technology — University of Danang, Vietnam</p>
-                        <div class="award-desc" style="margin-top: 12px; font-size: 0.95rem; color: var(--text-secondary);">
-                            <strong style="color: var(--accent-gold);">GPA:</strong> 3.65/4.0 • <strong style="color: var(--accent-gold);">Distinction:</strong> Excellent Bachelor's Degree<br>
-                            <strong style="color: var(--accent-gold);">Capstone:</strong> A Deep Learning-Based Approach for Multi-Weather Image Restoration and Enhancement<br>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="education-card">
-                    <div class="edu-year">2018<br>—<br>2021</div>
-                    <div class="edu-content">
-                        <h3 class="edu-degree">National Team - Informatics Class (IT 18-21)</h3>
-                        <p class="edu-school">Le Quy Don Upper-Secondary School for the Gifted, Quang Tri, Vietnam</p>
-                        <div class="award-desc" style="margin-top: 12px; font-size: 0.95rem; color: var(--text-secondary);">
-                            Selected for national-level scientific research competition team and Informatics gifted student team
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <p class="footer-text">© 2025 An Hung Nguyen. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Smooth scroll reveal animation
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.section').forEach(section => {
-            section.style.opacity = '0';
-            section.style.transform = 'translateY(40px)';
-            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-            observer.observe(section);
-        });
-
-        // Staggered card animations
-        document.querySelectorAll('.interest-card, .publication-card, .award-item, .education-card').forEach((card, index) => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-            
-            const cardObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-
-            cardObserver.observe(card);
-        });
-    </script>
+<script>
+(function(){
+  var root=document.documentElement;
+  try{var t=localStorage.getItem("cv-theme");if(t)root.setAttribute("data-theme",t)}catch(e){}
+  document.getElementById("theme").addEventListener("click",function(){
+    var dark=root.getAttribute("data-theme")?root.getAttribute("data-theme")==="dark":matchMedia("(prefers-color-scheme: dark)").matches;
+    var next=dark?"light":"dark";
+    root.setAttribute("data-theme",next);
+    try{localStorage.setItem("cv-theme",next)}catch(e){}
+  });
+  var links=[].slice.call(document.querySelectorAll("#nav a[href^=\"#\"]"));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute("href"))});
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){links.forEach(function(a){a.classList.toggle("on",a.getAttribute("href")==="#"+e.target.id)})}
+      });
+    },{rootMargin:"-30% 0px -60% 0px"});
+    secs.forEach(function(s){io.observe(s)});
+  }
+})();
+</script>
 </body>
 </html>
